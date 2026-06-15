@@ -41,6 +41,7 @@
         <ul class="nav__liens">
           <li><a class="nav__lien" href="index.html">Accueil</a></li>
           <li><a class="nav__lien" href="index.html#metiers">Nos métiers</a></li>
+          <li><a class="nav__lien" href="offres.html">Nos offres</a></li>
           <li><a class="nav__lien" href="index.html#references">Références</a></li>
           <li><a class="nav__lien" href="about.html">Qui sommes-nous</a></li>
         </ul>
@@ -54,6 +55,7 @@
           <ul class="nav__liens-mobile">
             <li><a class="nav__lien" href="index.html">Accueil</a></li>
             <li><a class="nav__lien" href="index.html#metiers">Nos métiers</a></li>
+            <li><a class="nav__lien" href="offres.html">Nos offres</a></li>
             <li><a class="nav__lien" href="index.html#references">Références</a></li>
             <li><a class="nav__lien" href="about.html">Qui sommes-nous</a></li>
             <li><a class="nav__lien" href="contact.html" aria-current="page">Nous contacter</a></li>
@@ -81,10 +83,11 @@
       <div class="conteneur">
         <div class="contact-grille">
           <!-- Formulaire — envoi via FormSubmit.co (gratuit, sans backend).
-               Les demandes arrivent sur contact@int-talentorz.com et le visiteur reçoit
-               un accusé de réception automatique (champ _autoresponse). Voir le <script> en bas de page. -->
+               Les demandes arrivent sur contact@int-talentorz.com (alias FormSubmit, e-mail masqué)
+               et le visiteur reçoit un accusé de réception automatique (champ _autoresponse).
+               Voir le <script> en bas de page. -->
           <form class="formulaire" id="form-contact"
-            action="https://formsubmit.co/contact@int-talentorz.com"
+            action="https://formsubmit.co/6258a3a55133d1a47fab23b102018216"
             method="POST" aria-label="Formulaire de contact">
             <!-- Objet du mail reçu -->
             <input type="hidden" name="_subject" value="Nouvelle demande — formulaire Talentorz">
@@ -94,7 +97,7 @@
             <input type="hidden" name="_captcha" value="false">
             <!-- Accusé de réception automatique envoyé au visiteur -->
             <input type="hidden" name="_autoresponse"
-              value="Bonjour, nous avons bien reçu votre demande et reviendrons vers vous sous 48 heures. Merci de votre confiance. — L'équipe Talentorz">
+              value="Bonjour, et merci d'avoir contacté Talentorz. Nous confirmons la bonne réception de votre message : notre équipe l'étudie et reviendra vers vous sous 48 heures ouvrées. Pour toute urgence, vous pouvez nous joindre au +33 6 69 02 66 92. À très bientôt. — L'équipe Talentorz">
             <!-- Anti-spam (honeypot) : laissé vide par un humain, rempli par les robots -->
             <input type="text" name="_honey" tabindex="-1" autocomplete="off"
               aria-hidden="true" style="display:none">
@@ -145,7 +148,7 @@
 
             <button class="bouton bouton--principal" type="submit">Envoyer ma demande</button>
 
-            <p class="formulaire__statut" id="form-statut" role="status" aria-live="polite"></p>
+            <p class="formulaire__statut formulaire__statut--erreur" id="form-statut" role="status" aria-live="polite" style="display:none"></p>
 
             <p class="formulaire__mentions">En envoyant ce formulaire, vous acceptez nos
               <a href="legal/terms-of-use.html">Conditions d'utilisation</a> et notre
@@ -166,7 +169,7 @@
             <div class="coordonnees__item">
               <p class="coordonnees__item-label">Téléphone</p>
               <p class="coordonnees__item-valeur">
-                <a href="tel:+33100000000">+33 6 69 02 66 92</a>
+                <a href="tel:+33669026692">+33 6 69 02 66 92</a>
               </p>
             </div>
 
@@ -191,6 +194,7 @@
         <nav class="site-pied__liens" aria-label="Navigation de pied de page">
           <a class="site-pied__lien" href="index.html">Accueil</a>
           <a class="site-pied__lien" href="index.html#metiers">Nos métiers</a>
+          <a class="site-pied__lien" href="offres.html">Nos offres</a>
           <a class="site-pied__lien" href="about.html">Qui sommes-nous</a>
           <a class="site-pied__lien" href="contact.html">Contact</a>
           <a class="site-pied__lien" href="legal/terms-of-use.html">Mentions légales</a>
@@ -204,25 +208,62 @@
     </div>
   </footer>
 
-  <!-- Envoi du formulaire de contact via FormSubmit.co.
-       Amélioration progressive : message inline + désactivation du bouton.
-       Sans JavaScript, le formulaire reste fonctionnel (POST natif → page de confirmation FormSubmit). -->
+  <!-- Modale de confirmation -->
+  <div class="modal-succes" id="modal-succes" role="dialog" aria-modal="true" aria-labelledby="modal-titre">
+    <div class="modal-succes__fond" id="modal-fond"></div>
+    <div class="modal-succes__boite">
+      <button class="modal-succes__fermer" id="modal-fermer" type="button" aria-label="Fermer">✕</button>
+      <div class="modal-succes__icone" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2 class="modal-succes__titre" id="modal-titre">Message envoyé</h2>
+      <p class="modal-succes__texte">Merci de nous avoir contacté. Vous allez recevoir un e-mail de confirmation à l'adresse indiquée. Notre équipe revient vers vous sous 48 h ouvrées.</p>
+      <p class="modal-succes__compte">Redirection vers l'accueil dans <strong><span id="compte-rebours">30</span>&nbsp;secondes</strong>.</p>
+      <button class="bouton bouton--principal modal-succes__btn" id="modal-fermer-btn" type="button">Fermer</button>
+    </div>
+  </div>
+
   <script>
     (function () {
       var form = document.getElementById('form-contact');
       if (!form) return;
       var statut = document.getElementById('form-statut');
       var bouton = form.querySelector('button[type="submit"]');
-      // Point d'accès AJAX de FormSubmit (renvoie du JSON au lieu d'une page).
-      var pointAjax = 'https://formsubmit.co/ajax/contact@int-talentorz.com';
+      var modal = document.getElementById('modal-succes');
+      var compteEl = document.getElementById('compte-rebours');
+      var pointAjax = 'https://formsubmit.co/ajax/6258a3a55133d1a47fab23b102018216';
+      var timerCompte = null;
+
+      function ouvrirModal() {
+        modal.classList.add('est-visible');
+        document.body.style.overflow = 'hidden';
+        var n = 30;
+        compteEl.textContent = n;
+        timerCompte = setInterval(function () {
+          n--;
+          compteEl.textContent = n;
+          if (n <= 0) fermerModal(true);
+        }, 1000);
+      }
+
+      function fermerModal(rediriger) {
+        clearInterval(timerCompte);
+        modal.classList.remove('est-visible');
+        document.body.style.overflow = '';
+        if (rediriger) window.location.href = 'index.html';
+      }
+
+      document.getElementById('modal-fermer').addEventListener('click', function () { fermerModal(false); });
+      document.getElementById('modal-fermer-btn').addEventListener('click', function () { fermerModal(false); });
+      document.getElementById('modal-fond').addEventListener('click', function () { fermerModal(false); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('est-visible')) fermerModal(false); });
 
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
         var texteInitial = bouton.textContent;
         bouton.disabled = true;
         bouton.textContent = 'Envoi en cours…';
-        statut.className = 'formulaire__statut';
-        statut.textContent = '';
+        statut.style.display = 'none';
 
         try {
           var reponse = await fetch(pointAjax, {
@@ -234,17 +275,16 @@
 
           if (reponse.ok && data && String(data.success) === 'true') {
             form.reset();
-            statut.classList.add('formulaire__statut--ok');
-            statut.textContent = 'Merci, votre demande a bien été envoyée. Vous allez recevoir un e-mail de confirmation ; nous revenons vers vous sous 48 h.';
+            ouvrirModal();
           } else {
-            statut.classList.add('formulaire__statut--erreur');
+            statut.style.display = '';
             statut.textContent = (data && data.message)
               ? data.message
               : 'Une erreur est survenue. Réessayez ou écrivez-nous à contact@int-talentorz.com.';
           }
         } catch (err) {
-          statut.classList.add('formulaire__statut--erreur');
-          statut.textContent = "Envoi impossible. Vérifiez votre connexion ou écrivez-nous à contact@int-talentorz.com.";
+          statut.style.display = '';
+          statut.textContent = 'Envoi impossible. Vérifiez votre connexion ou écrivez-nous à contact@int-talentorz.com.';
         } finally {
           bouton.disabled = false;
           bouton.textContent = texteInitial;

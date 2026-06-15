@@ -25,7 +25,7 @@
   --police-mono: "Fragment Mono", "Roboto Mono", ui-monospace, monospace;
 
   --largeur-max: 1240px;
-  --rayon: 4px;
+  --rayon: 0;
   --espace-section: 120px;
 }
 
@@ -204,10 +204,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   position: relative;
   margin: 0;
   border-radius: var(--rayon);
+  border: 1px solid var(--bordure-sombre);
   overflow: hidden;
   aspect-ratio: 5 / 4;
   background-color: var(--couleur-nuit-doux);
-  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.7);
   /* révélation : le cadre se dévoile de bas en haut */
   clip-path: inset(100% 0 0 0);
   animation: hero-reveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
@@ -415,6 +415,264 @@ ul { margin: 0; padding: 0; list-style: none; }
 .site-pied__lien:hover { color: var(--couleur-texte-clair); }
 .site-pied__bas { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 28px; border-top: 1px solid var(--bordure-sombre); font-size: 13px; color: var(--couleur-texte-clair-doux); }
 
+/* ---------- Modale de confirmation (formulaire de contact) ---------- */
+.modal-succes {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(12, 17, 28, 0.72);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.modal-succes.est-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-succes__fond {
+  position: absolute;
+  inset: 0;
+}
+.modal-succes__boite {
+  position: relative;
+  background: var(--couleur-blanc);
+  border: 1px solid var(--bordure-claire);
+  padding: 48px;
+  max-width: 480px;
+  width: calc(100% - 48px);
+  text-align: center;
+  transform: translateY(16px) scale(0.97);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-succes.est-visible .modal-succes__boite {
+  transform: none;
+}
+.modal-succes__fermer {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--couleur-texte-doux);
+  padding: 4px 8px;
+  font-family: var(--police-corps);
+}
+.modal-succes__fermer:hover { color: var(--couleur-texte); }
+.modal-succes__icone {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(10, 122, 61, 0.1);
+  color: #0a7a3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+.modal-succes__titre { font-size: 28px; margin-bottom: 14px; }
+.modal-succes__texte { color: var(--couleur-texte-doux); font-size: 16px; margin-bottom: 20px; line-height: 1.65; }
+.modal-succes__compte {
+  font-size: 13px;
+  color: var(--couleur-texte-doux);
+  margin-bottom: 28px;
+  font-family: var(--police-mono);
+  letter-spacing: 0.04em;
+}
+.modal-succes__btn { width: 100%; justify-content: center; }
+
+/* ---------- Offcanvas candidature ---------- */
+.offcanvas {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.offcanvas.est-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.offcanvas__fond {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  background: rgba(12, 17, 28, 0.6);
+}
+.offcanvas__panneau {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: min(560px, 100%);
+  background: var(--couleur-clair);
+  border-left: 1px solid var(--bordure-claire);
+  overflow-y: auto;
+  padding: 52px 40px 48px;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.offcanvas.est-visible .offcanvas__panneau { transform: none; }
+.offcanvas__fermer {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--couleur-texte-doux);
+  padding: 4px 8px;
+  font-family: var(--police-corps);
+}
+.offcanvas__fermer:hover { color: var(--couleur-texte); }
+.offcanvas__surtitre {
+  font-family: var(--police-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--couleur-texte-doux);
+  margin-bottom: 8px;
+}
+.offcanvas__titre { font-size: 26px; margin-bottom: 20px; padding-right: 40px; }
+.offcanvas__note {
+  font-size: 14px;
+  color: var(--couleur-texte-doux);
+  margin-bottom: 28px;
+  border-left: 2px solid var(--couleur-or);
+  padding-left: 16px;
+  line-height: 1.6;
+}
+.offcanvas__note a { color: var(--couleur-bleu); text-decoration: underline; }
+.offcanvas__statut { font-size: 15px; padding: 12px 14px; }
+.offcanvas__statut:empty { display: none; }
+.offcanvas__statut--ok { color: #0a7a3d; background-color: rgba(10, 122, 61, 0.08); border: 1px solid rgba(10, 122, 61, 0.25); }
+.offcanvas__statut--erreur { color: #b3261e; background-color: rgba(179, 38, 30, 0.08); border: 1px solid rgba(179, 38, 30, 0.25); }
+
+/* ---------- Offres d'emploi ---------- */
+.grille-offres { display: grid; gap: 20px; }
+.carte-offre {
+  background: var(--couleur-blanc);
+  border: 1px solid var(--bordure-claire);
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
+  transition: border-color 0.2s;
+}
+.carte-offre:hover { border-color: var(--couleur-bleu); }
+.carte-offre__titre { font-size: 22px; margin-bottom: 14px; }
+.carte-offre__meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.badge {
+  font-family: var(--police-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--bordure-claire);
+  background: var(--couleur-clair);
+  color: var(--couleur-texte-doux);
+}
+.badge--secteur { background: rgba(0, 86, 251, 0.06); color: var(--couleur-bleu); border-color: rgba(0, 86, 251, 0.18); }
+.badge--type { background: rgba(232, 184, 95, 0.12); color: #7a5500; border-color: rgba(232, 184, 95, 0.4); }
+.carte-offre__resume { font-size: 15px; color: var(--couleur-texte-doux); line-height: 1.65; }
+.carte-offre__lateral { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; flex-shrink: 0; }
+.carte-offre__remuneration { font-family: var(--police-titre); font-size: 20px; text-align: right; line-height: 1.2; }
+
+/* Détail d'une offre */
+.offre-entete {
+  background: var(--couleur-nuit);
+  color: var(--couleur-texte-clair);
+  padding-block: 80px;
+}
+.offre-entete__meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.offre-entete__meta .badge { border-color: var(--bordure-sombre); background: rgba(255,255,255,0.07); color: var(--couleur-texte-clair-doux); }
+.offre-entete__meta .badge--secteur { background: rgba(0, 86, 251, 0.2); color: #90adff; border-color: rgba(0, 86, 251, 0.35); }
+.offre-entete__meta .badge--type { background: rgba(232, 184, 95, 0.15); color: var(--couleur-or); border-color: rgba(232, 184, 95, 0.3); }
+.offre-entete__titre { font-size: clamp(36px, 5vw, 58px); margin-bottom: 20px; }
+.offre-entete__remuneration { font-family: var(--police-titre); font-size: 28px; color: var(--couleur-or); }
+
+.offre-grille { display: grid; grid-template-columns: 1fr 300px; gap: 64px; align-items: start; padding-block: var(--espace-section); }
+.offre-contenu h2 { font-family: var(--police-titre); font-weight: 300; font-size: 30px; letter-spacing: -0.02em; margin: 44px 0 16px; padding-top: 24px; border-top: 1px solid var(--bordure-claire); }
+.offre-contenu h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+.offre-contenu p { color: var(--couleur-texte-doux); font-size: 17px; margin-bottom: 16px; line-height: 1.65; }
+.offre-contenu ul { padding-left: 22px; list-style: disc; margin-bottom: 16px; }
+.offre-contenu li { color: var(--couleur-texte-doux); font-size: 17px; margin-bottom: 8px; line-height: 1.6; }
+
+.offre-fiche {
+  position: sticky;
+  top: 100px;
+  background: var(--couleur-blanc);
+  border: 1px solid var(--bordure-claire);
+  padding: 28px;
+}
+.offre-fiche__ligne { display: flex; justify-content: space-between; gap: 12px; padding-block: 14px; border-bottom: 1px solid var(--bordure-claire); align-items: baseline; }
+.offre-fiche__ligne:last-of-type { border-bottom: none; padding-bottom: 0; }
+.offre-fiche__cle { font-family: var(--police-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--couleur-texte-doux); flex-shrink: 0; }
+.offre-fiche__val { font-size: 15px; text-align: right; font-weight: 500; }
+.offre-fiche__btn { width: 100%; justify-content: center; margin-top: 20px; }
+
+/* Champ fichier */
+.champ__fichier {
+  width: 100%;
+  padding: 11px 14px;
+  font-family: var(--police-corps);
+  font-size: 15px;
+  color: var(--couleur-texte-doux);
+  background-color: var(--couleur-blanc);
+  border: 1px solid var(--bordure-claire);
+  cursor: pointer;
+}
+.champ__fichier::file-selector-button {
+  font-family: var(--police-mono);
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  background: var(--couleur-clair);
+  border: 1px solid var(--bordure-claire);
+  border-radius: 0;
+  cursor: pointer;
+  margin-right: 12px;
+}
+
+/* Candidature spontanée (fond sombre sur offres.html) */
+.spontanee { background: var(--couleur-nuit); color: var(--couleur-texte-clair); }
+.spontanee .surtitre { color: var(--couleur-texte-clair-doux); }
+.spontanee .section__titre { color: var(--couleur-texte-clair); }
+.spontanee .section__intro { color: var(--couleur-texte-clair-doux); }
+.spontanee .champ__label { color: var(--couleur-texte-clair-doux); }
+.spontanee .champ__saisie,
+.spontanee .champ__zone,
+.spontanee .champ__select,
+.spontanee .champ__fichier {
+  background: rgba(255,255,255,0.06);
+  border-color: var(--bordure-sombre);
+  color: var(--couleur-texte-clair);
+}
+.spontanee .champ__saisie::placeholder,
+.spontanee .champ__zone::placeholder { color: rgba(246,247,248,0.35); }
+.spontanee .champ__fichier::file-selector-button {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--bordure-sombre);
+  color: var(--couleur-texte-clair);
+}
+.spontanee .formulaire__mentions { color: var(--couleur-texte-clair-doux); }
+.spontanee .formulaire__mentions a { color: var(--couleur-or); text-decoration: underline; }
+.spontanee .formulaire__statut--ok { background: rgba(10, 122, 61, 0.15); border-color: rgba(10,122,61,0.3); }
+.spontanee .formulaire__statut--erreur { background: rgba(179,38,30,0.15); border-color: rgba(179,38,30,0.3); }
+
 /* ---------- Adaptatif ---------- */
 @media (max-width: 1024px) {
   .grille-metiers { grid-template-columns: repeat(2, 1fr); }
@@ -449,6 +707,13 @@ ul { margin: 0; padding: 0; list-style: none; }
   .hero__grille { grid-template-columns: 1fr; gap: 48px; }
   .hero__contenu { max-width: none; }
   .hero__media { aspect-ratio: 16 / 10; max-height: 420px; }
+
+  .modal-succes__boite { padding: 36px 28px; }
+  .offcanvas__panneau { padding: 48px 24px 40px; }
+  .carte-offre { grid-template-columns: 1fr; }
+  .carte-offre__lateral { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 10px; }
+  .offre-grille { grid-template-columns: 1fr; gap: 40px; padding-block: 60px; }
+  .offre-fiche { position: static; }
 }
 
 @media (max-width: 600px) {
