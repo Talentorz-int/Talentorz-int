@@ -1,0 +1,63 @@
+import { a as u } from "chunk-FUQZY6JN.mjs";
+import { b as s } from "chunk-6FJY55U7.mjs";
+import { B as m, P as l } from "chunk-5JMTOW4C.mjs";
+import { k as a, l as i } from "chunk-O5NUHS4A.mjs";
+import { o as c } from "chunk-RJAQ7ZXH.mjs";
+import { Ta as d } from "chunk-3GX5YKYT.mjs";
+var t = a[100],
+  p = i[180],
+  P = {
+    panelPadding: t,
+    panelGap: t,
+    contentTitleIndentation: a[50],
+    popoverPadding: t,
+    popoverGap: t,
+    popoverRadius: p,
+    modalPadding: t,
+    modalGap: t,
+    modalRadius: p,
+    floatingWindowRadius: p,
+    floatingToolbarMarginBottom: t,
+    sitesPanelHeaderHeight: 50,
+    webBarHeight: 50,
+    popoverHeaderHeight: 30,
+    saveButtonWidth: 53,
+    modalInnerRadius: i[80],
+    modalHeaderHeight: 50,
+    modalWidth: 260,
+    largeModalWidth: 320,
+    tooltipOffset: a[100],
+    tooltipBorderRadius: i[100],
+    cmsSidebarPlusIconWrapperWidth: 25,
+  };
+function h() {
+  return !0;
+}
+function b() {
+  return c.isOn("enableCrdtForNewProjects");
+}
+function W(e, r = {}) {
+  let n = e.space.scope !== "user" ? e.space.id : void 0,
+    o;
+  return (
+    m(e) ? (o = "recent") : e.collection && (o = e.collection.id),
+    d({ ...r, duplicateFrom: e.id, spaceId: n, collectionId: o })
+  );
+}
+function y(e, r) {
+  return s.put(`/web/v2/projects/${e}`, r);
+}
+async function F(e, r = !1) {
+  let n = { ...e };
+  b() && (n.crdt = !0);
+  let o = d(n);
+  r ? l(o) : u(o);
+}
+async function I(e) {
+  return s.delete(`/web/projects/${e}/acl/me`);
+}
+async function N(e) {
+  return s.delete(`/web/projects/${e}`);
+}
+export { P as a, h as b, W as c, y as d, F as e, I as f, N as g };
+//# sourceMappingURL=chunk-JG5QFAU7.mjs.map

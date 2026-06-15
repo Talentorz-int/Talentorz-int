@@ -1,0 +1,120 @@
+import { e as a, j as d } from "chunk-WJBO7C5H.mjs";
+var {
+    onewayMethodTemplate: T,
+    voidMethodTemplate: _,
+    valueMethodTemplate: F,
+    streamMethodTemplate: c,
+  } = d,
+  p;
+((s) =>
+  (s.service = {
+    id: "__Flags__",
+    fingerprint: "2dc758b5859fc43cd99a9ea5569fd9d8",
+    methods: {
+      experimentsUpdatesStream: {},
+      employeesOnlySettingsUpdatesStream: {},
+      projectFeaturesUpdatesStream: {},
+    },
+    newOutgoingWrapper: (t) => ({
+      experimentsUpdatesStream: c.bind(-1, "experimentsUpdatesStream", t),
+      employeesOnlySettingsUpdatesStream: c.bind(-1, "employeesOnlySettingsUpdatesStream", t),
+      projectFeaturesUpdatesStream: c.bind(-1, "projectFeaturesUpdatesStream", t),
+    }),
+  }))((p ||= {}));
+var m;
+((o) => {
+  o.service = p.service;
+  function s(e) {
+    let i = a.shared();
+    return {
+      expect: () => i.expectWithoutDiscovery(o.service, e),
+      discover: (n) => i.discover(o.service, e, n),
+      register: (n) => i.register({ channel: e, service: o.service, implementation: n }),
+    };
+  }
+  o.on = s;
+  async function t(e) {
+    a.shared().unregister(e);
+  }
+  o.unregister = t;
+})((m ||= {}));
+var {
+    onewayMethodTemplate: X,
+    voidMethodTemplate: l,
+    valueMethodTemplate: Y,
+    streamMethodTemplate: S,
+  } = d,
+  u;
+((s) =>
+  (s.service = {
+    id: "__ModulePreviewSandbox__",
+    fingerprint: "cd90aa3eb2d872f617817454d952c2d5",
+    methods: {
+      render: {},
+      setColorMode: {},
+      componentSizeStream: {},
+      previewKeyboardEventStream: {},
+      renderUpdateStream: {},
+      setTargetModuleRevisions: {},
+      setModuleWidth: {},
+    },
+    newOutgoingWrapper: (t) => ({
+      render: l.bind(-1, "render", !0, t),
+      setColorMode: l.bind(-1, "setColorMode", !0, t),
+      componentSizeStream: S.bind(-1, "componentSizeStream", t),
+      previewKeyboardEventStream: S.bind(-1, "previewKeyboardEventStream", t),
+      renderUpdateStream: S.bind(-1, "renderUpdateStream", t),
+      setTargetModuleRevisions: l.bind(-1, "setTargetModuleRevisions", !0, t),
+      setModuleWidth: l.bind(-1, "setModuleWidth", !0, t),
+    }),
+  }))((u ||= {}));
+var g;
+((o) => {
+  o.service = u.service;
+  function s(e) {
+    let i = a.shared();
+    return {
+      expect: () => i.expectWithoutDiscovery(o.service, e),
+      discover: (n) => i.discover(o.service, e, n),
+      register: (n) => i.register({ channel: e, service: o.service, implementation: n }),
+    };
+  }
+  o.on = s;
+  async function t(e) {
+    a.shared().unregister(e);
+  }
+  o.unregister = t;
+})((g ||= {}));
+var {
+    onewayMethodTemplate: ve,
+    voidMethodTemplate: me,
+    valueMethodTemplate: ge,
+    streamMethodTemplate: M,
+  } = d,
+  v;
+((s) =>
+  (s.service = {
+    id: "__ModulesUpdates__",
+    fingerprint: "94442ac22b31297c9938132d5ea74437",
+    methods: { moduleUpdatesStream: {} },
+    newOutgoingWrapper: (t) => ({ moduleUpdatesStream: M.bind(-1, "moduleUpdatesStream", t) }),
+  }))((v ||= {}));
+var y;
+((o) => {
+  o.service = v.service;
+  function s(e) {
+    let i = a.shared();
+    return {
+      expect: () => i.expectWithoutDiscovery(o.service, e),
+      discover: (n) => i.discover(o.service, e, n),
+      register: (n) => i.register({ channel: e, service: o.service, implementation: n }),
+    };
+  }
+  o.on = s;
+  async function t(e) {
+    a.shared().unregister(e);
+  }
+  o.unregister = t;
+})((y ||= {}));
+export { m as a, g as b, y as c };
+//# sourceMappingURL=chunk-Q5CK3FPQ.mjs.map

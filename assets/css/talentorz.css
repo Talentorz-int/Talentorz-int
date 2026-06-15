@@ -1,0 +1,73 @@
+/* Talentorz Styles personnalisés
+ * Ce fichier est le point central pour toute personnalisation Talentorz.
+ * Les styles Framer générés sont dans les balises <style> inline de chaque page.
+ */
+
+/* ─── Variables de marque ─────────────────────────────────────────────────── */
+:root {
+  --talentorz-gold: #C9A84C;
+  --talentorz-gold-light: #E8C97A;
+  --talentorz-dark: #0D0D0D;
+  --talentorz-surface: #161616;
+}
+
+/* ─── Comportement global ─────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Rendu des polices optimisé */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Sélection de texte aux couleurs Talentorz */
+::selection {
+  background-color: var(--talentorz-gold);
+  color: #000;
+}
+
+/* ─── Navigation épurée : logo + bouton Contacter uniquement ──────────────── */
+/* Liens de navigation desktop */
+[data-framer-name="link-container"],
+/* Méga-menu déroulant « Nos métiers » */
+[data-framer-name="Sub-Services"],
+/* Entrées du menu mobile (le bouton Contact y reste visible) */
+[data-framer-name="Menu Item"] {
+  display: none !important;
+}
+
+/* ─── Sections masquées sur la page d'accueil ─────────────────────────────── */
+.framer-1gx0ya4, /* Nos expertises métier */
+.framer-1f8b1cq, /* Révéler les talents, accélérer vos recrutements (études de cas) */
+.framer-5x8hmz,  /* La confiance de nos partenaires (témoignages) */
+.framer-a3mnp9 { /* Des conseils pour mieux recruter (blog) */
+  display: none !important;
+}
+
+/* ─── Accessibilité ───────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--talentorz-gold);
+  outline-offset: 3px;
+}
+
+/* ─── Performances ────────────────────────────────────────────────────────── */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Réduire les animations pour les utilisateurs sensibles */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

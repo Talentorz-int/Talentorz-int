@@ -1,0 +1,111 @@
+import { U as u, kh as d, lh as b, mh as p, nh as f } from "chunk-KIWT3OS5.mjs";
+import { a as y } from "chunk-SJONTHBI.mjs";
+import { a as N } from "chunk-6PNPO5DW.mjs";
+import { e as k } from "chunk-XELMBOBL.mjs";
+function l(n, a) {
+  return a.map((e) => {
+    if (!e) return null;
+    let t = e["Average Time (ns)"];
+    if (!t) return e;
+    if (e["Task Name"] === "baseline") e.Faster = "-";
+    else {
+      let o = t / 1e6;
+      e.Faster = (n / o).toFixed(2);
+    }
+    return (
+      delete e.Margin,
+      delete e["Average Time (ns)"],
+      (e["Average Time (s)"] = (t / 1e9).toFixed(3)),
+      e
+    );
+  });
+}
+async function V(n) {
+  let { default: a } = await import("https://app.framerstatic.com/dist-P2THTXB5.mjs"),
+    e = new a();
+  (e.add("baseline", () => u.generics.valueFromNode(n)),
+    e.add("new", () => f(n)),
+    await e.warmup(),
+    await e.run());
+  let t = l(e.results[0]?.mean ?? 0, e.table()),
+    o = [...n.walk()].length;
+  (console.log(`Results for serializing ${n.__class} with ${o} nodes`), console.table(t));
+}
+async function S(n) {
+  let { default: a } = await import("https://app.framerstatic.com/dist-P2THTXB5.mjs"),
+    e = n.root.toJS(),
+    t = e;
+  function o() {
+    t = JSON.parse(JSON.stringify(e));
+  }
+  let s = new a();
+  (s.add("baseline", () => u.generics.nodeFromValue(t), { beforeEach: o }),
+    s.add("new", () => d(t), { beforeEach: o }),
+    await s.warmup(),
+    await s.run());
+  let m = l(s.results[0]?.mean ?? 0, s.table()),
+    c = n.size();
+  (console.log(`Results for parsing ${c} nodes`), console.table(m));
+}
+async function M(n) {
+  let { default: a } = await import("https://app.framerstatic.com/dist-P2THTXB5.mjs"),
+    e = new a({ iterations: 5 });
+  (e.add("baseline", () => n.clone(), { beforeAll: () => p() }),
+    e.add("new", () => n.clone(), { beforeAll: () => b() }),
+    await e.warmup(),
+    await e.run());
+  let t = l(e.results[0]?.mean ?? 0, e.table()),
+    o = [...n.walk()].length;
+  (console.log(`Results for cloning ${o} nodes`), console.table(t));
+}
+async function A(n, a) {
+  let {
+      loadPartialDocument: e,
+      loadOneRootChild: t,
+      TreeAssembler: o,
+    } = await import("https://app.framerstatic.com/partialDocument-ZYLN74F4.mjs"),
+    { VekterEngine: s } = await import("https://app.framerstatic.com/VekterEngine-RQYAEJUZ.mjs"),
+    { DocumentParser: m, serializeDocument: c } =
+      await import("https://app.framerstatic.com/src-VLW46YA7.mjs"),
+    { default: x } = await import("https://app.framerstatic.com/dist-P2THTXB5.mjs"),
+    R = c(n.toJS()),
+    g = new m(R),
+    h = () => {
+      let w = new s(),
+        T = e(g, w.componentLoader, a),
+        F = new Map();
+      for (; !t(g, F); );
+      let C = new o(w, T, F);
+      for (; !C.assembleOnePage(); );
+      C.buildCompleteTree();
+    };
+  if (!sessionStorage.getItem("bench")) {
+    (console.log("Running once, call with sessionStorage.bench = 1 to use benchmark."),
+      console.time("assemblePages"),
+      h(),
+      console.timeEnd("assemblePages"));
+    return;
+  }
+  let r = new x({});
+  (r.add("baseline", h),
+    console.log("warmup"),
+    await r.warmup(),
+    console.log("run"),
+    await r.run());
+  let v = l(r.results[0]?.mean ?? 0, r.table());
+  console.table(v);
+}
+var i = k(y(), 1),
+  P = (0, i.createContext)(void 0);
+function q() {
+  let n = (0, i.useContext)(P);
+  return (
+    N(
+      n,
+      "modulesRuntime is not found in the context, make sure ModulesRuntimeContext.Provider is present in the tree."
+    ),
+    n
+  );
+}
+export { V as a, S as b, M as c, A as d, P as e, q as f };
+//# sourceMappingURL=chunk-PD5X3SIE.mjs.map

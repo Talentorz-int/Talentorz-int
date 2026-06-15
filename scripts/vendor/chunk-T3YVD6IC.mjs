@@ -1,0 +1,194 @@
+import { Yg as L } from "chunk-KIWT3OS5.mjs";
+import { $l as z, R as W, Yg as j } from "chunk-UVMW6WIE.mjs";
+import {
+  A as y,
+  Bd as f,
+  Cn as F,
+  D as T,
+  Dd as M,
+  G,
+  Od as B,
+  Xj as H,
+  Yg as O,
+  Zg as $,
+  dc as E,
+  gj as a,
+  jg as P,
+  lg as D,
+  wn as v,
+} from "chunk-C45BQYIA.mjs";
+import { Ye as A } from "chunk-IGDTGOWI.mjs";
+import { a as x } from "chunk-LEYNIZPU.mjs";
+import { a as R, b as g, e as b, f as U, m as I } from "chunk-DYNCKUFC.mjs";
+import { a as w } from "chunk-SJONTHBI.mjs";
+import { a as h, b as V } from "chunk-6PNPO5DW.mjs";
+import { c as ee, e as u, j as s } from "chunk-XELMBOBL.mjs";
+var q = ee((ue, _) => {
+  "use strict";
+  _.exports = typeof globalThis.ReactDOMServer > "u" ? void 0 : globalThis.ReactDOMServer;
+});
+function re(r) {
+  return r === "loading" || r === "error";
+}
+function ae(r, t) {
+  for (let o of t) {
+    let n = r.getNode(o);
+    if (!n) continue;
+    let e = r.getGroundNodeFor(n);
+    if (H(e) && re(e.gesture)) return !0;
+  }
+  return !1;
+}
+var Q = u(q(), 1);
+var l = u(x(), 1),
+  C = u(w(), 1),
+  te = 1e3,
+  J = 50,
+  S = class {
+    constructor(t, o, n) {
+      this.svg = t;
+      this.lastAccess = o;
+      this.hash = n;
+    }
+  },
+  c = class c {
+    constructor() {
+      s(this, "map", new Map());
+      s(this, "shouldUpdateGeneration", !1);
+      s(this, "generation", 0);
+      s(this, "oldestGeneration", 0);
+    }
+    static shared() {
+      return (c._instance || (c._instance = new c()), c._instance);
+    }
+    getSVGStringForNode(t, o) {
+      if (f(o)) {
+        let n = o.getContentHash(),
+          e = this.map.get(n);
+        if (e) return ((e.lastAccess = this.generation), e.svg);
+        this.shouldUpdateGeneration && ((this.generation += 1), (this.shouldUpdateGeneration = !1));
+        let i = X(t, o, "s" + n);
+        return (this.map.set(n, new S(i, this.generation, n)), i);
+      }
+      return X(t, o, o.id);
+    }
+    update() {
+      ((this.shouldUpdateGeneration = !0),
+        !(this.map.size < te) && (this.generation - this.oldestGeneration < J || this.evict()));
+    }
+    evict() {
+      let t = Array.from(this.map.values()).sort((e, i) => e.lastAccess - i.lastAccess),
+        o = Math.floor(t.length / 2),
+        n = t[o];
+      (h(n, "SVG entry must be defined"), (this.oldestGeneration = n.lastAccess));
+      for (let e = 0; e < o; e++) {
+        let i = t[e];
+        if ((h(i, "SVG entry must be defined"), this.generation - i.lastAccess < J)) break;
+        this.map.delete(i.hash);
+      }
+    }
+  };
+s(c, "_instance");
+var K = c,
+  N = class {
+    constructor(t) {
+      this.contentHash = t;
+      s(this, "counter", 0);
+    }
+    nextId() {
+      return ((this.counter += 1), `${this.contentHash}_${this.counter}`);
+    }
+  };
+function X(r, t, o) {
+  let n = new N("s" + o),
+    e = null;
+  if (f(t) && t.fillEnabled && t.exportIncludesBackground && !W(t)) {
+    let { children: d, ...Z } = t.raw();
+    e = k(new L(Z), r, n, !1);
+  }
+  let i = !f(t),
+    p = (i ? [t] : t.children).map((d) => (v(d) ? k(d, r, n, !i) : null)),
+    Y = (0, l.jsx)(A, {
+      isStatic: !0,
+      children: (0, l.jsxs)("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        xmlnsXlink: "http://www.w3.org/1999/xlink",
+        viewBox: `0 0 ${y(t.width, 3)} ${y(t.height, 3)}`,
+        overflow: i ? "visible" : void 0,
+        children: [e, p],
+      }),
+    });
+  return T({ target: G.export }, () => Q.renderToStaticMarkup(Y));
+}
+function k(r, t, o, n) {
+  let e = o.nextId();
+  if (M(r)) {
+    let m = r.getProps(t);
+    return (
+      (m.id = e),
+      (0, C.createElement)(
+        $,
+        { ...m, key: e, includeTransform: n },
+        r.children.map((p) => k(p, t, o, !0))
+      )
+    );
+  }
+  let i = r.getProps(t);
+  return (
+    (i.id = e),
+    (i.strokeClipId = `clip_${e}`),
+    (0, C.createElement)(O, { ...i, key: e, includeTransform: n })
+  );
+}
+function oe(r) {
+  return f(r) ? !1 : !!(ne(r) || ie(r) || (j(r) && r.children.find((t) => v(t) && oe(t))));
+}
+function ne(r) {
+  return !z(r) || !r.strokeEnabled || !r.strokeWidth ? !1 : r.strokeAlignment === "center";
+}
+function ie(r) {
+  return F(r) ? (E(r.boxShadows) ? !0 : !!r.boxShadows?.some((t) => !t.inset)) : !1;
+}
+function Te(r, t) {
+  let o = t.get(r);
+  return B(o) ? o : null;
+}
+function* Be(r, t) {
+  for (let o in r) {
+    let n = r[o];
+    if (!n || !D(n)) continue;
+    let e = t[o];
+    if (!I(e)) continue;
+    let i = P(o);
+    switch (n.type) {
+      case "number":
+        if (!b(e) && !a(e)) break;
+        yield { name: i, uniform: { type: "number", value: e } };
+        break;
+      case "boolean":
+        if (!R(e) && !a(e)) break;
+        yield { name: i, uniform: { type: "boolean", value: e } };
+        break;
+      case "color":
+        if (!g(e) && !a(e)) break;
+        yield { name: i, uniform: { type: "color", value: e } };
+        break;
+      case "responsiveimage":
+        if (!g(e) && !U(e) && !a(e)) break;
+        yield { name: i, uniform: { type: "responsiveimage", value: e } };
+        break;
+      case "enum":
+        if (!b(e) && !a(e)) break;
+        yield { name: i, uniform: { type: "enum", value: e } };
+        break;
+      case "array":
+        if ((!Array.isArray(e) && !a(e)) || n.control?.type !== "color") break;
+        yield { name: i, uniform: { type: "array", value: e } };
+        break;
+      default:
+        V(n);
+    }
+  }
+}
+export { Te as a, re as b, ae as c, Be as d, q as e, K as f, oe as g };
+//# sourceMappingURL=chunk-T3YVD6IC.mjs.map

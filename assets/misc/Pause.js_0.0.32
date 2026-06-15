@@ -1,0 +1,8 @@
+/*
+ * Pause (material-icons/Pause@0.0.32)
+ *
+ * Learn More: https://www.framer.com/asset-urls
+ */
+
+export * from "https://framerusercontent.com/modules/PX75fFft7ZdfjMJyPq3j/imp2lVVBHuxiy6Kps6oR/Pause.js"
+export { default } from "https://framerusercontent.com/modules/PX75fFft7ZdfjMJyPq3j/imp2lVVBHuxiy6Kps6oR/Pause.js"

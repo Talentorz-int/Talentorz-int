@@ -1,0 +1,33 @@
+# ============================================================
+#  Talentorz — fichiers exclus de la publication (GitHub Pages)
+#  But : ne publier que le site final, sans outils ni artefacts internes.
+# ============================================================
+
+# --- Notes / outils de développement internes ---
+serve.cjs
+transform.ps1
+_audit.mjs
+
+# --- Sauvegardes & exports d'origine (non destinés au public) ---
+*.bak
+index.framer-original.html.bak
+
+# --- Artefacts de l'export d'origine, non utilisés par le site final ---
+# scripts/
+# styles/
+# subpages/
+# data/
+# assets/misc/
+# assets/videos/
+
+# --- Système d'exploitation / éditeurs ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.log
+
+# --- Notes / configuration d'assistants (ne jamais publier) ---
+CLAUDE.md
+.claude/
